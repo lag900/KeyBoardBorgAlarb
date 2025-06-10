@@ -1,0 +1,1350 @@
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جامعة الطفل التكنولوجية - تعلم الكتابة على الكيبورد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* الأساسية */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --programming-color: #9b59b6;
+        }
+
+        /* التصميم العام */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* شريط العنوان واللوجو */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .university-name h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .university-name p {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .developer-info {
+            background-color: var(--light-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .developer-info span {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* منطقة الألسنة (Tabs) */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background-color: #e0e0e0;
+            color: #333;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* منطقة اللعبة العامة */
+        .game-area, .programming-exercise {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .challenge-box, .coding-challenge-box {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .coding-challenge-box {
+            background: linear-gradient(135deg, var(--programming-color) 0%, #3498db 100%);
+        }
+
+        .stats, .exercise-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            width: 100%;
+            flex-wrap: wrap; /* Added for responsiveness */
+        }
+
+        .score, .timer, .response-time {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        /* Timer warning/danger colors */
+        .timer.warning {
+            color: var(--warning-color);
+            font-weight: bold;
+            animation: pulse 1s infinite alternate;
+        }
+
+        .timer.danger {
+            color: var(--danger-color);
+            font-weight: bold;
+            animation: pulse 0.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* لوحة المفاتيح */
+        .keyboard-container {
+            margin: 30px 0;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .key {
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #bdbdbd, 0 3px 6px rgba(0, 0, 0, 0.16);
+            height: 60px;
+            min-width: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            padding: 5px;
+            user-select: none; /* Prevent text selection on keys */
+        }
+
+        .key:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 #bdbdbd, 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .key:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #bdbdbd;
+        }
+
+        /* Visual feedback for pressed key */
+        .key.active-press {
+            background-color: #d0e7f7;
+            box-shadow: 0 1px 0 #9bbccf;
+            transform: translateY(2px);
+        }
+
+        .key.highlight {
+            background-color: #fff9c4;
+            box-shadow: 0 4px 0 #ffd54f, 0 0 20px #ffeb3b;
+            transform: scale(1.05);
+        }
+
+        /* Styles for characters on keys */
+        .key .ar-char {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: none; /* Hide Arabic by default for coding keyboard */
+        }
+
+        .key .en-char {
+            position: absolute; /* Changed from relative to absolute for precise positioning */
+            top: 5px; /* Top-left position */
+            left: 5px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            display: block; /* Always visible for English base character */
+        }
+
+        .key .shift-char {
+            position: absolute;
+            top: 5px;
+            right: 5px; /* Top-right position for shifted character */
+            font-size: 0.8rem;
+            color: #95a5a6;
+            font-weight: normal;
+            display: block; /* Always visible for shifted character in coding keyboard */
+        }
+        
+        /* Ensure that for non-coding keyboard, ar-char and en-char/shift-char behave as before */
+        .keyboard#letters-keyboard .key .ar-char {
+            display: block; /* Default display is block for AR in letters keyboard */
+        }
+        .keyboard#letters-keyboard .key .en-char {
+            display: none; /* Default display is none for EN in letters keyboard */
+            position: relative; /* Reset position for standard keys */
+            top: unset;
+            left: unset;
+        }
+        .keyboard#letters-keyboard .key .shift-char {
+            display: none; /* Default display is none for shift char in letters keyboard */
+        }
+
+        /* مفاتيح خاصة */
+        .key.space {
+            width: 400px;
+            height: 50px;
+        }
+
+        .key.wide {
+            min-width: 80px;
+        }
+
+        .key.enter, .key.backspace {
+            min-width: 100px;
+            background-color: #e3f2fd;
+        }
+
+        .key.shift {
+            min-width: 120px;
+        }
+
+        .key.tab {
+            min-width: 90px;
+        }
+
+        .key.caps {
+            min-width: 110px;
+        }
+
+        /* الأزرار */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .start-btn {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .start-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .lang-btn {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .lang-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .help-btn {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .help-btn:hover {
+            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hide language toggle for coding tab */
+        #coding-tab-content #coding-toggle-lang {
+            display: none;
+        }
+
+
+        /* رسائل التغذية الراجعة */
+        .feedback-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.4rem;
+            min-height: 40px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* نافذة المساعدة */
+        .help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .modal-content ul {
+            list-style-type: none;
+            margin: 25px 0;
+        }
+
+        .modal-content li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .modal-content li i {
+            margin-left: 10px;
+            color: var(--secondary-color);
+            width: 25px;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        .credits {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .credits p:first-child {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .credits span {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* أنماط قسم البرمجة */
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px; /* Added gap */
+        }
+
+        .exercise-header h2 {
+            color: var(--programming-color);
+            font-size: 1.5rem;
+        }
+
+        .exercise-stats {
+            display: flex;
+            gap: 20px;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 30px;
+            flex-wrap: wrap; /* Added for responsiveness */
+        }
+
+        .coding-challenge-box .code-example {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e0e0e0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: var(--programming-color);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+            }
+            
+            .university-name h1 {
+                font-size: 1.8rem;
+            }
+            
+            .challenge-box, .coding-challenge-box {
+                font-size: 1.4rem;
+                padding: 15px;
+                min-height: 120px;
+            }
+            
+            .stats, .exercise-stats {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center; /* Center items in column layout */
+            }
+            
+            .key {
+                height: 50px;
+                min-width: 40px;
+                font-size: 0.9rem;
+            }
+            
+            .key .ar-char {
+                font-size: 1.2rem;
+            }
+            
+            .key .en-char, .key .shift-char { /* Adjust font size for both */
+                font-size: 0.7rem;
+            }
+            
+            .key.space {
+                width: 200px;
+            }
+            
+            .key.wide {
+                min-width: 50px;
+            }
+            
+            .key.enter, .key.backspace {
+                min-width: 60px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .modal-content h2 {
+                font-size: 1.4rem;
+            }
+            
+            .modal-content li {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header-container">
+            <div class="logo-container">
+                <img src="C:\Users\Abdelrhman Ibrahim\OneDrive\Desktop\keyboard\images\logo.png" alt="University Logo" class="logo">
+                <div class="university-name">
+                    <h1> جامعة الطفل التكنولوجية</h1>
+                    <p>بناء عقول مبتكرة لمستقبل مشرق</p>
+                </div>
+            </div>
+            <div class="developer-info">
+                المطور: <span>م/عبدالرحمن ابراهيم سيد احمد </span>
+            </div>
+        </header>
+
+        <!-- أزرار التبويبات -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="letters-tab" id="letters-tab-btn">تمارين الحروف</button>
+            <button class="tab-btn" data-tab="coding-tab" id="coding-tab-btn">تمارين البرمجة</button>
+        </div>
+
+        <!-- تبويب الحروف -->
+        <div class="tab-content active" id="letters-tab-content">
+            <div class="game-area">
+                <div class="challenge-box">
+                    <div id="current-challenge">اضغط على زر "ابدأ" لبدء التمرين</div>
+                    <div class="stats">
+                        <div class="score">النقاط: <span id="score">0</span></div>
+                        <div class="timer">الوقت المتبقي: <span id="time">5</span> ثانية</div>
+                        <div class="response-time">سرعة الاستجابة: <span id="response-time">0.00</span> ثانية</div>
+                    </div>
+                </div>
+
+                <div class="keyboard-container">
+                    <div class="keyboard" id="letters-keyboard">
+                        <!-- سيتم إنشاء لوحة المفاتيح بواسطة JavaScript -->
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="start-btn" class="btn start-btn">
+                        <i class="fas fa-play"></i> ابدأ التمرين
+                    </button>
+                    <button id="toggle-lang" class="btn lang-btn">
+                        <i class="fas fa-language"></i> English
+                    </button>
+                    <button id="help-btn" class="btn help-btn">
+                        <i class="fas fa-question-circle"></i> مساعدة
+                    </button>
+                    <audio id="correct-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-bling-2074.mp3" preload="auto"></audio>
+                    <audio id="wrong-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-1606.mp3" preload="auto"></audio>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب البرمجة -->
+        <div class="tab-content" id="coding-tab-content">
+            <div class="programming-exercise">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-code"></i> تمارين الرموز البرمجية</h2>
+                    <div class="exercise-stats">
+                        <div class="score">النقاط: <span id="coding-score">0</span></div>
+                        <div class="response-time">سرعة الاستجابة: <span id="coding-response-time">0.00</span> ثانية</div>
+                    </div>
+                </div>
+                
+                <div class="coding-challenge-box">
+                    <div id="coding-challenge">Press "Start" to begin coding symbols exercise</div>
+                    <div class="keyboard-container"> <!-- Reuse keyboard container for consistency -->
+                        <div class="keyboard" id="coding-keyboard">
+                            <!-- لوحة المفاتيح للرموز سيتم إنشاؤها هنا -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="coding-start-btn" class="btn start-btn">
+                        <i class="fas fa-play"></i> Start Exercise
+                    </button>
+                    <!-- Language toggle removed for coding tab as per user request -->
+                    <!-- <button id="coding-toggle-lang" class="btn lang-btn">
+                        <i class="fas fa-language"></i> English
+                    </button> -->
+                    <button id="coding-help-btn" class="btn help-btn">
+                        <i class="fas fa-question-circle"></i> Help
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="feedback-message" id="feedback"></div>
+        
+        <!-- نافذة المساعدة (Modal) -->
+        <div class="help-modal" id="help-modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2><i class="fas fa-info-circle"></i> كيفية اللعب</h2>
+                <div class="tab-help active" id="letters-help-content">
+                    <h3>تمارين الحروف:</h3>
+                    <ul>
+                        <li><i class="fas fa-play"></i> اضغط على زر "ابدأ التمرين" لبدء اللعبة.</li>
+                        <li><i class="fas fa-keyboard"></i> ستظهر لك حروف يجب الضغط عليها من لوحة المفاتيح.</li>
+                        <li><i class="fas fa-exchange-alt"></i> يمكنك تبديل اللغة بين العربية والإنجليزية.</li>
+                        <li><i class="fas fa-star"></i> كل إجابة صحيحة تحصل على نقطة.</li>
+                        <li><i class="fas fa-clock"></i> لديك 5 ثوانٍ للإجابة على كل تحدي.</li>
+                        <li><i class="fas fa-tachometer-alt"></i> سيتم قياس سرعة استجابتك لكل حرف.</li>
+                    </ul>
+                </div>
+                <div class="tab-help" id="coding-help-content">
+                    <h3>Coding Exercises:</h3>
+                    <ul>
+                        <li><i class="fas fa-play"></i> Press "Start Exercise" to begin learning symbols.</li>
+                        <li><i class="fas fa-code"></i> You will see programming symbols like: <span class="code-example">{} ; # = ()</span>.</li>
+                        <li><i class="fas fa-keyboard"></i> Find the required symbol and press it on the keyboard.</li>
+                        <li><i class="fas fa-star"></i> Each correct answer earns a point.</li>
+                        <li><i class="fas fa-tachometer-alt"></i> Your response time for each symbol will be measured.</li>
+                        <li><i class="fas fa-hands-key"></i> Some symbols require pressing SHIFT + Key.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // العناصر الرئيسية
+            const lettersKeyboard = document.getElementById('letters-keyboard');
+            const codingKeyboard = document.getElementById('coding-keyboard'); 
+            const currentChallengeDisplay = document.getElementById('current-challenge');
+            const codingChallengeDisplay = document.getElementById('coding-challenge'); 
+            const scoreElement = document.getElementById('score');
+            const codingScoreElement = document.getElementById('coding-score'); 
+            const startBtn = document.getElementById('start-btn');
+            const codingStartBtn = document.getElementById('coding-start-btn'); 
+            const toggleLangBtn = document.getElementById('toggle-lang');
+            const codingToggleLangBtn = document.getElementById('coding-toggle-lang'); 
+            const feedbackElement = document.getElementById('feedback');
+            const correctSound = document.getElementById('correct-sound');
+            const wrongSound = document.getElementById('wrong-sound');
+            const timeElement = document.getElementById('time');
+            const responseTimeElement = document.getElementById('response-time'); 
+            const codingResponseTimeElement = document.getElementById('coding-response-time'); 
+            const helpBtn = document.getElementById('help-btn');
+            const codingHelpBtn = document.getElementById('coding-help-btn'); 
+            const helpModal = document.getElementById('help-modal');
+            const closeBtn = document.querySelector('.close-btn');
+
+            const lettersTabBtn = document.getElementById('letters-tab-btn');
+            const codingTabBtn = document.getElementById('coding-tab-btn');
+            const lettersTabContent = document.getElementById('letters-tab-content');
+            const codingTabContent = document.getElementById('coding-tab-content');
+            const lettersHelpContent = document.getElementById('letters-help-content');
+            const codingHelpContent = document.getElementById('coding-help-content');
+
+            // المتغيرات
+            let score = 0;
+            let codingScore = 0; 
+            let isGameRunning = false;
+            let currentLanguage = 'ar'; // Default language for letters tab
+            let currentChallengeKey = null;
+            let timerInterval = null;
+            let timeLeft = 5;
+            let challengeStartTime = 0; 
+            let activeTab = 'letters-tab'; 
+
+            // الرموز البرمجية (تتضمن رموز تتطلب Shift)
+            const codeSymbols = [
+                '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 
+                '{', '}', '[', ']', '<', '>', '_', '+', ':', '"', '?', '|' // Added common shifted symbols
+            ];
+
+            let isCodeExerciseActive = false;
+            let isShiftPressed = false;
+
+            // تعريف لوحة المفاتيح مع الأرقام والرموز
+            const keys = [
+                // الصف الأول (الأعلى)
+                { ar: 'ذ', en: '`', code: 'Backquote', row: 1, shiftChar: '~' },
+                { ar: '1', en: '1', code: 'Digit1', row: 1, symbol: true, shiftChar: '!' },
+                { ar: '2', en: '2', code: 'Digit2', row: 1, symbol: true, shiftChar: '@' },
+                { ar: '3', en: '3', code: 'Digit3', row: 1, symbol: true, shiftChar: '#' },
+                { ar: '4', en: '4', code: 'Digit4', row: 1, symbol: true, shiftChar: '$' },
+                { ar: '5', en: '5', code: 'Digit5', row: 1, symbol: true, shiftChar: '%' },
+                { ar: '6', en: '6', code: 'Digit6', row: 1, symbol: true, shiftChar: '^' },
+                { ar: '7', en: '7', code: 'Digit7', row: 1, symbol: true, shiftChar: '&' },
+                { ar: '8', en: '8', code: 'Digit8', row: 1, symbol: true, shiftChar: '*' },
+                { ar: '9', en: '9', code: 'Digit9', row: 1, symbol: true, shiftChar: '(' },
+                { ar: '0', en: '0', code: 'Digit0', row: 1, symbol: true, shiftChar: ')' },
+                { ar: '-', en: '-', code: 'Minus', row: 1, symbol: true, shiftChar: '_' },
+                { ar: '=', en: '=', code: 'Equal', row: 1, symbol: true, shiftChar: '+' },
+                { ar: 'Backspace', en: 'Backspace', code: 'Backspace', row: 1, wide: true },
+
+                // الصف الثاني
+                { ar: 'ض', en: 'q', code: 'KeyQ', row: 2, shiftChar: 'Q' },
+                { ar: 'ص', en: 'w', code: 'KeyW', row: 2, shiftChar: 'W' },
+                { ar: 'ث', en: 'e', code: 'KeyE', row: 2, shiftChar: 'E' },
+                { ar: 'ق', en: 'r', code: 'KeyR', row: 2, shiftChar: 'R' },
+                { ar: 'ف', en: 't', code: 'KeyT', row: 2, shiftChar: 'T' },
+                { ar: 'غ', en: 'y', code: 'KeyY', row: 2, shiftChar: 'Y' },
+                { ar: 'ع', en: 'u', code: 'KeyU', row: 2, shiftChar: 'U' },
+                { ar: 'ه', en: 'i', code: 'KeyI', row: 2, shiftChar: 'I' },
+                { ar: 'خ', en: 'o', code: 'KeyO', row: 2, shiftChar: 'O' },
+                { ar: 'ح', en: 'p', code: 'KeyP', row: 2, shiftChar: 'P' },
+                { ar: 'ج', en: '[', code: 'BracketLeft', row: 2, symbol: true, shiftChar: '{' },
+                { ar: 'د', en: ']', code: 'BracketRight', row: 2, symbol: true, shiftChar: '}' },
+                { ar: '\\', en: '\\', code: 'Backslash', row: 2, symbol: true, shiftChar: '|' },
+
+                // الصف الثالث
+                { ar: 'Caps Lock', en: 'Caps Lock', code: 'CapsLock', row: 3, wide: true },
+                { ar: 'ش', en: 'a', code: 'KeyA', row: 3, shiftChar: 'A' },
+                { ar: 'س', en: 's', code: 'KeyS', row: 3, shiftChar: 'S' },
+                { ar: 'ي', en: 'd', code: 'KeyD', row: 3, shiftChar: 'D' },
+                { ar: 'ب', en: 'f', code: 'KeyF', row: 3, shiftChar: 'F' },
+                { ar: 'ل', en: 'g', code: 'KeyG', row: 3, shiftChar: 'G' },
+                { ar: 'ا', en: 'h', code: 'KeyH', row: 3, shiftChar: 'H' },
+                { ar: 'ت', en: 'j', code: 'KeyJ', row: 3, shiftChar: 'J' },
+                { ar: 'ن', en: 'k', code: 'KeyK', row: 3, shiftChar: 'K' },
+                { ar: 'م', en: 'l', code: 'KeyL', row: 3, shiftChar: 'L' },
+                { ar: 'ك', en: ';', code: 'Semicolon', row: 3, symbol: true, shiftChar: ':' },
+                { ar: 'ط', en: "'", code: 'Quote', row: 3, symbol: true, shiftChar: '"' },
+                { ar: 'Enter', en: 'Enter', code: 'Enter', row: 3, wide: true },
+
+                // الصف الرابع
+                { ar: 'Shift', en: 'Shift', code: 'ShiftLeft', row: 4, wide: true },
+                { ar: 'ئ', en: 'z', code: 'KeyZ', row: 4, shiftChar: 'Z' },
+                { ar: 'ء', en: 'x', code: 'KeyX', row: 4, shiftChar: 'X' },
+                { ar: 'ؤ', en: 'c', code: 'KeyC', row: 4, shiftChar: 'C' },
+                { ar: 'ر', en: 'v', code: 'KeyV', row: 4, shiftChar: 'V' },
+                { ar: 'لا', en: 'b', code: 'KeyB', row: 4, shiftChar: 'B' },
+                { ar: 'ى', en: 'n', code: 'KeyN', row: 4, shiftChar: 'N' },
+                { ar: 'ة', en: 'm', code: 'KeyM', row: 4, shiftChar: 'M' },
+                { ar: 'و', en: ',', code: 'Comma', row: 4, symbol: true, shiftChar: '<' },
+                { ar: 'ز', en: '.', code: 'Period', row: 4, symbol: true, shiftChar: '>' },
+                { ar: 'ظ', en: '/', code: 'Slash', row: 4, symbol: true, shiftChar: '?' },
+                { ar: 'Shift', en: 'Shift', code: 'ShiftRight', row: 4, wide: true },
+
+                // الصف الخامس (الأخير)
+                { ar: 'Ctrl', en: 'Ctrl', code: 'ControlLeft', row: 5, wide: true },
+                { ar: 'Win', en: 'Win', code: 'MetaLeft', row: 5 },
+                { ar: 'Alt', en: 'Alt', code: 'AltLeft', row: 5 },
+                { ar: 'Space', en: 'Space', code: 'Space', row: 5, space: true },
+                { ar: 'Alt', en: 'Alt', code: 'AltRight', row: 5 },
+                { ar: 'Ctrl', en: 'Ctrl', code: 'ControlRight', row: 5 }
+            ];
+
+            // إنشاء لوحة المفاتيح
+            function createKeyboard(targetKeyboardElement) {
+                targetKeyboardElement.innerHTML = '';
+                const rows = {};
+                keys.forEach(keyData => {
+                    if (!rows[keyData.row]) {
+                        rows[keyData.row] = [];
+                    }
+                    rows[keyData.row].push(keyData);
+                });
+
+                Object.keys(rows).sort().forEach(rowNum => {
+                    const rowKeys = rows[rowNum];
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = `keyboard-row row-${rowNum}`;
+                    rowKeys.forEach(keyData => {
+                        const keyElement = document.createElement('div');
+                        keyElement.className = 'key';
+                        keyElement.classList.add(`row-${keyData.row}`);
+                        if (keyData.symbol) keyElement.classList.add('symbol');
+                        if (keyData.wide) keyElement.classList.add('wide');
+                        if (keyData.space) keyElement.classList.add('space');
+                        if (keyData.code === 'Enter') keyElement.classList.add('enter');
+                        if (keyData.code === 'Backspace') keyElement.classList.add('backspace');
+                        if (keyData.code.includes('Shift')) keyElement.classList.add('shift');
+                        if (keyData.code === 'CapsLock') keyElement.classList.add('caps');
+                        if (keyData.code === 'Tab') keyElement.classList.add('tab');
+
+                        // Create AR char span
+                        const arCharSpan = document.createElement('span');
+                        arCharSpan.textContent = keyData.ar;
+                        arCharSpan.className = 'ar-char';
+                        keyElement.appendChild(arCharSpan);
+
+                        // Create EN char span
+                        const enCharSpan = document.createElement('span');
+                        enCharSpan.textContent = keyData.en;
+                        enCharSpan.className = 'en-char';
+                        keyElement.appendChild(enCharSpan);
+
+                        // Create Shift char span if it exists
+                        if (keyData.shiftChar) {
+                            const shiftCharSpan = document.createElement('span');
+                            shiftCharSpan.textContent = keyData.shiftChar;
+                            shiftCharSpan.className = 'shift-char';
+                            keyElement.appendChild(shiftCharSpan);
+                        }
+                        
+                        keyElement.dataset.ar = keyData.ar;
+                        keyElement.dataset.en = keyData.en;
+                        keyElement.dataset.code = keyData.code;
+                        if (keyData.shiftChar) keyElement.dataset.shiftChar = keyData.shiftChar;
+
+                        rowDiv.appendChild(keyElement);
+                    });
+                    targetKeyboardElement.appendChild(rowDiv);
+                });
+                updateKeyboardDisplay();
+            }
+
+            // بدء اللعبة
+            function startGame() {
+                if (isGameRunning) return;
+                
+                isGameRunning = true;
+                score = 0;
+                codingScore = 0;
+                scoreElement.textContent = score;
+                codingScoreElement.textContent = codingScore;
+                
+                // Set button text based on active tab
+                if (activeTab === 'letters-tab') {
+                    startBtn.textContent = 'إيقاف التمرين';
+                    feedbackElement.textContent = '';
+                    responseTimeElement.textContent = '0.00';
+                    timeElement.classList.remove('warning', 'danger');
+                } else { // Coding tab
+                    codingStartBtn.textContent = 'Stop Exercise'; // Changed to English
+                    feedbackElement.textContent = '';
+                    codingResponseTimeElement.textContent = '0.00';
+                    timeElement.classList.remove('warning', 'danger'); 
+                }
+
+                document.addEventListener('keydown', handleKeyPress);
+                
+                createNewChallenge();
+            }
+
+            // إيقاف اللعبة
+            function stopGame() {
+                isGameRunning = false;
+                clearInterval(timerInterval);
+                
+                if (activeTab === 'letters-tab') {
+                    startBtn.textContent = 'ابدأ التمرين';
+                    currentChallengeDisplay.textContent = 'اضغط على زر "ابدأ" لبدء التمرين';
+                    responseTimeElement.textContent = '0.00';
+                } else { // Coding tab
+                    codingStartBtn.textContent = 'Start Exercise'; // Changed to English
+                    codingChallengeDisplay.textContent = 'Press "Start" to begin coding symbols exercise'; // Changed to English
+                    codingResponseTimeElement.textContent = '0.00';
+                }
+                
+                removeHighlight();
+                timeElement.textContent = '5';
+                timeLeft = 5;
+                timeElement.classList.remove('warning', 'danger'); 
+                
+                document.removeEventListener('keydown', handleKeyPress);
+            }
+
+            // إنشاء تحدي جديد
+            function createNewChallenge() {
+                removeHighlight();
+                clearInterval(timerInterval);
+                timeLeft = 5;
+                timeElement.textContent = timeLeft;
+                timeElement.classList.remove('warning', 'danger'); 
+                challengeStartTime = Date.now(); 
+
+                if (isCodeExerciseActive) {
+                    // Filter keys that have a shiftChar and are also in codeSymbols, or are direct symbols in codeSymbols
+                    const potentialChallengeKeys = keys.filter(key => {
+                        const enChar = key.en;
+                        const shiftChar = key.shiftChar;
+                        
+                        // Prioritize symbols that require Shift
+                        if (shiftChar && codeSymbols.includes(shiftChar)) {
+                            return true;
+                        }
+                        // Include symbols that don't require Shift but are in codeSymbols
+                        if (enChar && codeSymbols.includes(enChar) && !key.symbol) { // Check for non-shifted basic symbols like = -
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    // If no specific shifted keys found, fall back to any symbol
+                    const randomKey = potentialChallengeKeys.length > 0 ? 
+                                        potentialChallengeKeys[Math.floor(Math.random() * potentialChallengeKeys.length)] :
+                                        keys.find(k => k.symbol && codeSymbols.includes(k.en)); // Fallback to any basic symbol
+
+                    if (!randomKey) { // Fallback if no relevant key found (shouldn't happen with comprehensive keys/symbols)
+                        const randomSymbol = codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
+                        currentChallengeKey = { ar: randomSymbol, en: randomSymbol, code: null, display: randomSymbol };
+                    } else {
+                        // Decide which char to display: prefer shiftChar if it's the challenge, otherwise enChar
+                        if (randomKey.shiftChar && codeSymbols.includes(randomKey.shiftChar)) {
+                            currentChallengeKey = { 
+                                ar: randomKey.ar, 
+                                en: randomKey.en, 
+                                code: randomKey.code, 
+                                shiftChar: randomKey.shiftChar,
+                                display: randomKey.shiftChar // Display the shifted character
+                            };
+                        } else {
+                            currentChallengeKey = { 
+                                ar: randomKey.ar, 
+                                en: randomKey.en, 
+                                code: randomKey.code, 
+                                shiftChar: randomKey.shiftChar,
+                                display: randomKey.en // Display the base English character
+                            };
+                        }
+                    }
+
+                    // Always display challenge in English for coding exercises
+                    codingChallengeDisplay.textContent = `Press the symbol ${currentChallengeKey.display}`;
+                    highlightKey(currentChallengeKey);
+                } else { // Letters Exercise
+                    const basicKeys = keys.filter(key => 
+                        (!key.symbol && key.code.startsWith('Key')) || key.code === 'Space'
+                        || (key.symbol && ['Comma', 'Period', 'Slash', 'Semicolon', 'Quote', 'Minus', 'Equal'].includes(key.code) && !key.shiftChar)
+                    );
+                    const randomKey = basicKeys[Math.floor(Math.random() * basicKeys.length)];
+                    currentChallengeKey = randomKey;
+                    if (currentLanguage === 'ar') {
+                        currentChallengeDisplay.textContent = `اضغط على حرف ${randomKey.ar}`;
+                    } else {
+                        currentChallengeDisplay.textContent = `Press the letter ${randomKey.en}`;
+                    }
+                    highlightKey(randomKey);
+                }
+
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+
+            // تحديث العداد الزمني
+            function updateTimer() {
+                timeLeft--;
+                timeElement.textContent = timeLeft;
+                
+                if (timeLeft <= 2) {
+                    timeElement.classList.add('danger');
+                    timeElement.classList.remove('warning');
+                } else if (timeLeft <= 3) {
+                    timeElement.classList.add('warning');
+                    timeElement.classList.remove('danger');
+                } else {
+                    timeElement.classList.remove('warning', 'danger');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    wrongSound.currentTime = 0;
+                    wrongSound.play();
+                    feedbackElement.textContent = currentLanguage === 'ar' ? 
+                        'انتهى الوقت! حاول مرة أخرى' : 'Time\'s up! Try again';
+                    feedbackElement.style.color = '#f44336';
+                    
+                    setTimeout(createNewChallenge, 1500);
+                }
+            }
+
+            // إبراز المفتاح المطلوب
+            function highlightKey(keyData) {
+                const activeKeyboard = isCodeExerciseActive ? codingKeyboard : lettersKeyboard;
+                const keysElements = activeKeyboard.querySelectorAll('.key');
+                
+                keysElements.forEach(key => {
+                    if (key.dataset.code === keyData.code) {
+                        key.classList.add('highlight');
+                    }
+                });
+            }
+
+            // إزالة الإبراز
+            function removeHighlight() {
+                const highlightedKeys = document.querySelectorAll('.key.highlight');
+                highlightedKeys.forEach(key => key.classList.remove('highlight'));
+            }
+
+            // التعامل مع الضغط على لوحة المفاتيح الحقيقية
+            function handleKeyPress(event) {
+                if (!isGameRunning) return;
+                
+                const pressedKeyCode = event.code;
+                const activeKeyboard = isCodeExerciseActive ? codingKeyboard : lettersKeyboard;
+                const targetKeyElement = activeKeyboard.querySelector(`.key[data-code="${pressedKeyCode}"]`);
+
+                if (targetKeyElement) {
+                    targetKeyElement.classList.add('active-press');
+                    setTimeout(() => {
+                        targetKeyElement.classList.remove('active-press');
+                    }, 150);
+                }
+                
+                let isCorrect = false;
+                let pressedChar = '';
+
+                // Determine the character pressed based on Shift state and language
+                // For coding exercises, force to English logic
+                if (isCodeExerciseActive || currentLanguage === 'en') { 
+                    if (isShiftPressed && targetKeyElement && targetKeyElement.dataset.shiftChar) {
+                        pressedChar = targetKeyElement.dataset.shiftChar;
+                    } else {
+                        pressedChar = targetKeyElement ? targetKeyElement.dataset.en : '';
+                    }
+                    // Handle Caps Lock for letters (if implemented) - not directly for symbols
+                } else { // Arabic for letters exercise
+                    pressedChar = targetKeyElement ? targetKeyElement.dataset.ar : '';
+                }
+
+                // Comparison logic
+                if (isCodeExerciseActive) {
+                    // For code symbols, compare pressed character with the expected symbol
+                    // The expected symbol is currentChallengeKey.display (which is already the shifted char if applicable)
+                    if (currentChallengeKey && currentChallengeKey.display === pressedChar) {
+                        isCorrect = true;
+                    }
+                } else { // Letters exercise
+                    if (currentChallengeKey) {
+                        if (currentLanguage === 'ar') {
+                            isCorrect = (currentChallengeKey.ar === pressedChar);
+                        } else { // English letters
+                            // For English letters, compare both lowercase and uppercase as per user input
+                            const expectedEnChar = currentChallengeKey.en;
+                            const expectedShiftChar = currentChallengeKey.shiftChar; 
+                            isCorrect = (expectedEnChar.toLowerCase() === pressedChar.toLowerCase()) || 
+                                        (expectedShiftChar && expectedShiftChar.toLowerCase() === pressedChar.toLowerCase());
+                        }
+                    }
+                }
+
+
+                if (isCorrect) {
+                    const responseTime = (Date.now() - challengeStartTime) / 1000;
+                    if (isCodeExerciseActive) {
+                        codingScore++;
+                        codingScoreElement.textContent = codingScore;
+                        codingResponseTimeElement.textContent = responseTime.toFixed(2);
+                    } else {
+                        score++;
+                        scoreElement.textContent = score;
+                        responseTimeElement.textContent = responseTime.toFixed(2);
+                    }
+                    
+                    correctSound.currentTime = 0;
+                    correctSound.play();
+                    
+                    const messages = currentLanguage === 'ar' && !isCodeExerciseActive ? 
+                        ['برافو يا نجم!', 'ممتاز يا بطل!', 'أحسنت!', 'رائع!', 'ذهبي!'] : 
+                        ['Great job!', 'Awesome!', 'Perfect!', 'Well done!', 'Excellent!'];
+                    
+                    feedbackElement.textContent = messages[Math.floor(Math.random() * messages.length)];
+                    feedbackElement.style.color = '#4caf50';
+                    
+                    clearInterval(timerInterval);
+                    createNewChallenge();
+                } else if (currentChallengeKey) {
+                    wrongSound.currentTime = 0;
+                    wrongSound.play();
+                    
+                    // Display wrong message in English for coding exercises
+                    feedbackElement.textContent = isCodeExerciseActive ? 'Wrong, try again!' : (currentLanguage === 'ar' ? 
+                        'غلط يا بطل، حاول تاني!' : 'Wrong, try again!');
+                    feedbackElement.style.color = '#f44336';
+                }
+            }
+
+            // تبديل اللغة
+            function toggleLanguage() {
+                // Only allow language toggle for the letters exercise tab
+                if (activeTab === 'letters-tab') {
+                    currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+                    toggleLangBtn.textContent = currentLanguage === 'ar' ? 'English' : 'العربية';
+                    // codingToggleLangBtn is now hidden, so no need to update its text
+
+                    stopGame(); 
+                    createKeyboard(lettersKeyboard); 
+                    createKeyboard(codingKeyboard); // Recreate both keyboards to ensure proper display
+
+                    // Update challenge text for the letters tab
+                    currentChallengeDisplay.textContent = currentLanguage === 'ar' ? 
+                        'اضغط على زر "ابدأ" لبدء التمرين' : 'Press "Start" to begin exercise';
+                }
+                // Do nothing if on coding tab
+            }
+
+            // فتح/إغلاق نافذة المساعدة
+            function toggleHelp() {
+                helpModal.style.display = helpModal.style.display === 'flex' ? 'none' : 'flex';
+            }
+
+            // تحديث عرض لوحة المفاتيح بناءً على حالة Shift
+            function updateKeyboardDisplay() {
+                const activeKeyboard = isCodeExerciseActive ? codingKeyboard : lettersKeyboard;
+                const keysElements = activeKeyboard.querySelectorAll('.key');
+
+                keysElements.forEach(keyElement => {
+                    const arChar = keyElement.querySelector('.ar-char');
+                    const enChar = keyElement.querySelector('.en-char');
+                    const shiftChar = keyElement.querySelector('.shift-char');
+
+                    if (isCodeExerciseActive) { // Always English for coding exercises
+                        if (arChar) arChar.style.display = 'none'; // Hide Arabic for coding keyboard
+                        if (enChar) enChar.style.display = 'block'; // Show base English
+                        if (keyElement.dataset.shiftChar && shiftChar) { // If it has a shift char
+                            shiftChar.style.display = 'block'; // Always show shifted char in coding keyboard
+                        } else {
+                            if (shiftChar) shiftChar.style.display = 'none'; // No shift char to show
+                        }
+                    } else { // Letters exercise, based on currentLanguage
+                        if (currentLanguage === 'ar') {
+                            if (arChar) arChar.style.display = 'block';
+                            if (enChar) enChar.style.display = 'none';
+                            if (shiftChar) shiftChar.style.display = 'none';
+                        } else { // English letters
+                            if (keyElement.dataset.shiftChar && shiftChar) {
+                                if (isShiftPressed) {
+                                    shiftChar.style.display = 'block';
+                                    if (enChar) enChar.style.display = 'none';
+                                } else {
+                                    shiftChar.style.display = 'none';
+                                    if (enChar) enChar.style.display = 'block';
+                                }
+                            } else {
+                                if (enChar) enChar.style.display = 'block';
+                                if (shiftChar) shiftChar.style.display = 'none';
+                            }
+                            if (arChar) arChar.style.display = 'none';
+                        }
+                    }
+                });
+            }
+
+            // تبديل التبويبات
+            function switchTab(tabId) {
+                // Remove active from all tabs
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.querySelectorAll('.tab-help').forEach(help => help.classList.remove('active'));
+
+                // Add active to selected tab and its content
+                document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+                document.getElementById(`${tabId.replace('-tab', '-help')}-content`).classList.add('active');
+
+                activeTab = tabId; // Update active tab state
+                isCodeExerciseActive = (tabId === 'coding-tab'); // Set exercise type
+                stopGame(); // Stop any running game when switching tabs
+
+                // Important: recreate keyboards to ensure correct visual state for the new tab
+                createKeyboard(lettersKeyboard); 
+                createKeyboard(codingKeyboard);
+
+                // Reset challenge display text for the new tab based on exercise type
+                if (activeTab === 'letters-tab') {
+                    currentChallengeDisplay.textContent = currentLanguage === 'ar' ? 
+                        'اضغط على زر "ابدأ" لبدء التمرين' : 'Press "Start" to begin exercise';
+                } else { // Coding tab is always English for display
+                    codingChallengeDisplay.textContent = 'Press "Start" to begin coding symbols exercise';
+                }
+            }
+
+
+            // تهيئة الأحداث
+            startBtn.addEventListener('click', () => {
+                isCodeExerciseActive = false; // Ensure letters exercise is active
+                startGame();
+            });
+
+            codingStartBtn.addEventListener('click', () => {
+                isCodeExerciseActive = true; // Ensure coding exercise is active
+                startGame();
+            });
+            
+            toggleLangBtn.addEventListener('click', toggleLanguage);
+            // codingToggleLangBtn click listener is removed as it's hidden
+            
+            helpBtn.addEventListener('click', toggleHelp);
+            codingHelpBtn.addEventListener('click', () => { // Help button for coding tab
+                toggleHelp();
+                // Ensure the correct help content is active when opening modal from coding tab
+                document.getElementById('letters-help-content').classList.remove('active');
+                document.getElementById('coding-help-content').classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', toggleHelp);
+            helpModal.addEventListener('click', (e) => {
+                if (e.target === helpModal) toggleHelp();
+            });
+
+            lettersTabBtn.addEventListener('click', () => switchTab('letters-tab'));
+            codingTabBtn.addEventListener('click', () => switchTab('coding-tab'));
+
+            // Shift key handling for physical keyboard interaction
+            document.addEventListener('keydown', function(event) {
+                if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+                    if (!isShiftPressed) { 
+                        isShiftPressed = true;
+                        updateKeyboardDisplay();
+                    }
+                }
+                // Handle key press visual feedback on virtual keyboard
+                const activeKeyboard = isCodeExerciseActive ? codingKeyboard : lettersKeyboard;
+                const targetKeyElement = activeKeyboard.querySelector(`.key[data-code=\"${event.code}\"]`);
+                if (targetKeyElement) {
+                    targetKeyElement.classList.add('active-press');
+                }
+            });
+
+            document.addEventListener('keyup', function(event) {
+                if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+                    if (isShiftPressed) { 
+                        isShiftPressed = false;
+                        updateKeyboardDisplay();
+                    }
+                }
+                // Remove key press visual feedback
+                const activeKeyboard = isCodeExerciseActive ? codingKeyboard : lettersKeyboard;
+                const targetKeyElement = activeKeyboard.querySelector(`.key[data-code=\"${event.code}\"]`);
+                if (targetKeyElement) {
+                    targetKeyElement.classList.remove('active-press');
+                }
+            });
+
+            // تهيئة لوحة المفاتيح عند التحميل
+            createKeyboard(lettersKeyboard);
+            createKeyboard(codingKeyboard); // Create coding keyboard too
+            switchTab('letters-tab'); // Initialize with letters tab active
+        });
+    </script>
+</body>
+</html>
